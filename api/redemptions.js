@@ -1,5 +1,5 @@
 // File: api/redemptions.js
-import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import { WooCommerceRestApi } from "@woocommerce/woocommerce-rest-api";
 
 export default async function handler(req, res) {
   const api = new WooCommerceRestApi({
