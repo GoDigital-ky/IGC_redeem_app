@@ -16,11 +16,6 @@ export default function GiftCardPortal({ user }) {
     await signOut(auth);
   };
 
-  const extractProductName = (description) => {
-    const match = description?.match(/\[PRODUCTNAME\](.*?)\[\/PRODUCTNAME\]/);
-    return match ? match[1].trim() : null;
-  };
-
   const handleCheckBalance = async () => {
     setMessage('');
     setLoading(true);
@@ -37,8 +32,7 @@ export default function GiftCardPortal({ user }) {
       });
       const data = await response.json();
       if (data.code === 'success') {
-        const productName = extractProductName(data.description);
-        setCardDetails({ ...data, product_name: productName });
+        setCardDetails(data);
       } else {
         setMessage(data.message || 'Invalid code.');
       }
@@ -65,8 +59,7 @@ export default function GiftCardPortal({ user }) {
       });
       const data = await response.json();
       if (data.code === 'success') {
-        const productName = extractProductName(data.description);
-        setCardDetails({ ...data, product_name: productName });
+        setCardDetails(data);
         setMessage('Redeemed successfully!');
       } else {
         setMessage(data.message || 'Redeem failed.');
@@ -80,21 +73,21 @@ export default function GiftCardPortal({ user }) {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-blue-100 to-blue-200">
-      <div className="w-full max-w-md bg-white p-6 rounded shadow text-center">
-        <img src="/logo.png" alt="Island Gift Cards" className="mx-auto mb-4 h-12" />
-        <h1 className="text-xl font-semibold mb-2">Welcome, {user.email}</h1>
-        <p className="text-sm mb-4">Check balance & redeem your gift cards.</p>
+      <div className="w-full max-w-md bg-white p-6 rounded shadow text-center sm:p-8">
+        <img src="/logo.png" alt="Island Gift Cards" className="mx-auto mb-6 h-14 sm:h-16 object-contain" />
+        <h1 className="text-xl sm:text-2xl font-semibold mb-2">Welcome, {user.email}</h1>
+        <p className="text-sm text-gray-600 mb-6">Check balance & redeem your gift cards</p>
 
         <input
           type="text"
-          className="w-full mb-2 px-4 py-2 border rounded"
+          className="w-full mb-3 px-4 py-3 border rounded text-sm"
           placeholder="Enter Gift Card Code"
           value={couponCode}
           onChange={(e) => setCouponCode(e.target.value)}
         />
         <button
           onClick={handleCheckBalance}
-          className="w-full bg-blue-600 text-white py-2 rounded mb-4 hover:bg-blue-700"
+          className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 mb-4 text-sm"
           disabled={loading}
         >
           {loading ? 'Checking...' : 'Check Balance'}
@@ -105,7 +98,6 @@ export default function GiftCardPortal({ user }) {
             <p><strong>Remaining Amount:</strong> ${cardDetails.remaining_amount}</p>
             <p><strong>Usage Count:</strong> {cardDetails.usage_count} / {cardDetails.usage_limit}</p>
             <p><strong>Description:</strong> {cardDetails.description}</p>
-            <p><strong>Product:</strong> {cardDetails.product || 'Valid'}</p>
             <p><strong>Expires:</strong> {cardDetails.coupon_expiry}</p>
           </div>
         )}
@@ -114,14 +106,14 @@ export default function GiftCardPortal({ user }) {
           <>
             <input
               type="number"
-              className="w-full mb-2 px-4 py-2 border rounded"
+              className="w-full mb-3 px-4 py-3 border rounded text-sm"
               placeholder="Enter amount to redeem"
               value={redeemAmount}
               onChange={(e) => setRedeemAmount(e.target.value)}
             />
             <button
               onClick={handleRedeem}
-              className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+              className="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700 text-sm"
               disabled={loading}
             >
               {loading ? 'Processing...' : 'Redeem'}
@@ -133,7 +125,7 @@ export default function GiftCardPortal({ user }) {
 
         <button
           onClick={handleLogout}
-          className="mt-6 text-sm text-gray-500 underline"
+          className="mt-6 text-xs text-gray-500 underline"
         >
           Logout
         </button>
