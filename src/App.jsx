@@ -13,6 +13,15 @@ export default function App() {
     const unsub = auth.onAuthStateChanged(setUser);
     return () => unsub();
   }, []);
+  useEffect(() => {
+    const unsub = auth.onAuthStateChanged((user) => {
+      setUser(user);
+      if (user) {
+        console.log('Logged in as:', user.email);
+      }
+    });
+    return () => unsub();
+  }, []);  
 
   const adminEmails = [
     'islandgiftcards.net@gmail.com',
