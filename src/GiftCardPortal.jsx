@@ -105,7 +105,7 @@ export default function GiftCardPortal({ user }) {
             <p><strong>Remaining Amount:</strong> ${cardDetails.remaining_amount}</p>
             <p><strong>Usage Count:</strong> {cardDetails.usage_count} / {cardDetails.usage_limit}</p>
             <p><strong>Description:</strong> {cardDetails.description}</p>
-            <p><strong>Product:</strong> {cardDetails.product_name || 'Not available'}</p>
+            <p><strong>Product:</strong> {cardDetails.product || 'Valid'}</p>
             <p><strong>Expires:</strong> {cardDetails.coupon_expiry}</p>
           </div>
         )}
