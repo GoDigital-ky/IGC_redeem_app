@@ -13,8 +13,8 @@ export default function App() {
 
   const adminEmails = [
     'islandgiftcards.net@gmail.com',
-    'anotheradmin@example.com',
-    'yourbackupadmin@gmail.com'
+    'info@islandgiftcards.net',
+    'info@godigital.ky'
   ];
 
   const isAdmin = user && adminEmails.includes(user.email);
