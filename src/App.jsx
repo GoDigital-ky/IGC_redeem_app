@@ -4,33 +4,37 @@ import Login from './auth/Login';
 import ForgotPassword from './auth/ForgotPassword';
 import GiftCardPortal from './GiftCardPortal';
 import Dashboard from './admin/Dashboard';
+import AccessDenied from './pages/AccessDenied';
 import { auth } from './firebase';
 
 export default function App() {
   const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const unsub = auth.onAuthStateChanged(setUser);
-    return () => unsub();
-  }, []);
-  useEffect(() => {
-    const unsub = auth.onAuthStateChanged((user) => {
-      setUser(user);
-      if (user) {
-        console.log('Logged in as:', user.email);
-      }
-    });
-    return () => unsub();
-  }, []);  
+  const [authLoading, setAuthLoading] = useState(true);
 
   const adminEmails = [
     'islandgiftcards.net@gmail.com',
-    'info@islandgiftcards.net',
-    'info@godigital.ky'
+    'anotheradmin@example.com',
+    'yourbackupadmin@gmail.com'
   ];
-  
+
   const isAdmin = user && adminEmails.includes(user.email);
-  
+
+  useEffect(() => {
+    const unsub = auth.onAuthStateChanged((user) => {
+      setUser(user);
+      setAuthLoading(false);
+    });
+    return () => unsub();
+  }, []);
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500 text-sm">Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <Router>
       <Routes>
@@ -38,7 +42,9 @@ export default function App() {
         <Route path="/forgot" element={<ForgotPassword />} />
         <Route
           path="/admin"
-          element={isAdmin ? <Dashboard /> : <Navigate to="/" />}
+          element={
+            user ? (isAdmin ? <Dashboard /> : <AccessDenied />) : <Navigate to="/login" />
+          }
         />
         <Route
           path="/"
