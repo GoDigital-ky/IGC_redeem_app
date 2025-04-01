@@ -16,6 +16,11 @@ export default function GiftCardPortal({ user }) {
     await signOut(auth);
   };
 
+  const extractProductName = (description) => {
+    const match = description?.match(/\[PRODUCTNAME\](.*?)\[\/PRODUCTNAME\]/);
+    return match ? match[1].trim() : null;
+  };
+
   const handleCheckBalance = async () => {
     setMessage('');
     setLoading(true);
@@ -32,7 +37,8 @@ export default function GiftCardPortal({ user }) {
       });
       const data = await response.json();
       if (data.code === 'success') {
-        setCardDetails(data);
+        const productName = extractProductName(data.description);
+        setCardDetails({ ...data, product_name: productName });
       } else {
         setMessage(data.message || 'Invalid code.');
       }
@@ -59,7 +65,8 @@ export default function GiftCardPortal({ user }) {
       });
       const data = await response.json();
       if (data.code === 'success') {
-        setCardDetails(data);
+        const productName = extractProductName(data.description);
+        setCardDetails({ ...data, product_name: productName });
         setMessage('Redeemed successfully!');
       } else {
         setMessage(data.message || 'Redeem failed.');
@@ -97,7 +104,8 @@ export default function GiftCardPortal({ user }) {
           <div className="text-left text-sm bg-gray-50 p-4 rounded border mb-4">
             <p><strong>Remaining Amount:</strong> ${cardDetails.remaining_amount}</p>
             <p><strong>Usage Count:</strong> {cardDetails.usage_count} / {cardDetails.usage_limit}</p>
-            <p><strong>Description:</strong> {cardDetails.product_name}</p>
+            <p><strong>Description:</strong> {cardDetails.description}</p>
+            <p><strong>Product:</strong> {cardDetails.product_name || 'Not available'}</p>
             <p><strong>Expires:</strong> {cardDetails.coupon_expiry}</p>
           </div>
         )}
