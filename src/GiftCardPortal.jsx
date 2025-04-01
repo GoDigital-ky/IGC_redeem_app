@@ -72,10 +72,10 @@ export default function GiftCardPortal({ user }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-blue-100 to-blue-200">
-      <div className="w-full max-w-md bg-white p-6 rounded shadow text-center">
-        <img src="/logo.png" alt="Island Gift Cards" className="mx-auto mb-6 h-14 object-contain" />
-        <h1 className="text-xl font-semibold mb-2">Welcome, {user.email}</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-blue-100 to-blue-200">
+      <div className="w-full sm:max-w-md bg-white p-6 rounded shadow text-center">
+        <img src="/logo.png" alt="Island Gift Cards" className="mx-auto mb-6 h-14 sm:h-16 object-contain" />
+        <h1 className="text-xl sm:text-2xl font-semibold mb-2">Welcome, {user.email}</h1>
         <p className="text-sm text-gray-600 mb-6">Check balance & redeem your gift cards</p>
 
         <input

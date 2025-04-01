@@ -22,11 +22,11 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-gray-100">
-      <div className="w-full max-w-md bg-white p-6 rounded shadow">
-        <img src="/logo.png" alt="Island Gift Cards" className="mx-auto mb-6 h-14 object-contain" />
-        <h1 className="text-2xl font-bold mb-4 text-center">Login</h1>
-        {error && <p className="text-red-600 text-sm mb-4 text-center">{error}</p>}
-        <form onSubmit={handleLogin} className="space-y-4">
+      <div className="w-full max-w-md bg-white p-6 rounded shadow text-center">
+        <img src="/logo.png" alt="Island Gift Cards" className="mx-auto mb-4 h-14 object-contain" />
+        <h1 className="text-xl font-bold mb-4">Merchant Login</h1>
+        {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
+        <form onSubmit={handleLogin} className="space-y-4 text-left">
           <input
             type="email"
             placeholder="Email"
