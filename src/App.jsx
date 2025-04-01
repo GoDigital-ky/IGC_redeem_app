@@ -14,8 +14,14 @@ export default function App() {
     return () => unsub();
   }, []);
 
-  const isAdmin = user?.email === 'islandgiftcards.net@gmail.com'; // or use Firebase custom claims later
-
+  const adminEmails = [
+    'islandgiftcards.net@gmail.com',
+    'info@islandgiftcards.net',
+    'info@godigital.ky'
+  ];
+  
+  const isAdmin = user && adminEmails.includes(user.email);
+  
   return (
     <Router>
       <Routes>
