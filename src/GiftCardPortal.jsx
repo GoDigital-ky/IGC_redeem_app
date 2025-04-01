@@ -97,7 +97,7 @@ export default function GiftCardPortal({ user }) {
           <div className="text-left text-sm bg-gray-50 p-4 rounded border mb-4">
             <p><strong>Remaining Amount:</strong> ${cardDetails.remaining_amount}</p>
             <p><strong>Usage Count:</strong> {cardDetails.usage_count} / {cardDetails.usage_limit}</p>
-            <p><strong>Description:</strong> {cardDetails.description}</p>
+            <p><strong>Description:</strong> {cardDetails.product_name}</p>
             <p><strong>Expires:</strong> {cardDetails.coupon_expiry}</p>
           </div>
         )}
